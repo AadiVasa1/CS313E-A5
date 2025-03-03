@@ -32,7 +32,6 @@ PERCENTAGE_MIN = 0
 SALARY_ERROR_MESSAGE = "Salary must be non-negative."
 
 
-# TODO: implement this class. You may delete this comment when you are done.
 class Employee(ABC):
     """
     Abstract base class representing a generic employee in the system.
@@ -116,7 +115,6 @@ class Employee(ABC):
             raise ValueError
         self.__salary = val
 
-# TODO: implement this class. You may delete this comment when you are done.
 class Manager(Employee):
     """
     A subclass of Employee representing a manager.
@@ -138,6 +136,25 @@ class TemporaryEmployee(Employee):
     """
     A subclass of Employee representing a temporary employee.
     """
+
+    #TODO implement this pls 
+    def work(self):
+        pass
+
+    def interact(self, other):
+        "interact in child class"
+        super().interact(other)
+        if self.manager is not None and other.name==self.manager.name:
+            bool1 = other.happiness>=HAPPINESS_THRESHOLD
+            bool2 = self.performance>=TEMP_EMPLOYEE_PERFORMANCE_THRESHOLD
+            if bool1 and bool2:
+                self.savings+=MANAGER_BONUS
+            elif other.happiness<=HAPPINESS_THRESHOLD:
+                self.salary//=2
+                self.happiness-=5
+            if self.salary<=0:
+                self.is_employed=False
+
 
 
 # TODO: implement this class. You may delete this comment when you are done.
