@@ -111,9 +111,10 @@ class Employee(ABC):
         return self.__salary
     @salary.setter
     def salary(self, val):
-        if val<0:
+        if val >= 0:
+            self.__salary = val
+        else:
             raise ValueError
-        self.__salary = val
 
 class Manager(Employee):
     """
@@ -160,7 +161,7 @@ class PermanentEmployee(Employee):
     A subclass of Employee representing a permanent employee.
     """
     def work(self):
-        change = random.randint(-10,10)
+        change = random.randint(-10, 10)
         self.performance += change
         if change >= 0:
             self.happiness += 1
@@ -168,7 +169,7 @@ class PermanentEmployee(Employee):
     def interact(self, other):
         super().interact(other)
         if self.manager is not None and other.name == self.manager.name:
-            bool1 = other.happiness >= HAPPINESS_THRESHOLD
+            bool1 = other.happiness > HAPPINESS_THRESHOLD
             bool2 = self.performance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD
             if bool1 and bool2:
                 self.savings += MANAGER_BONUS
