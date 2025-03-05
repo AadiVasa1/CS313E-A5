@@ -167,7 +167,7 @@ class PermanentEmployee(Employee):
 
     def interact(self, other):
         super().interact(other)
-        if self.manager is not None and other.name == self.manager.name:
+        if self.manager is not None and other.name is self.manager.name:
             bool1 = other.happiness > HAPPINESS_THRESHOLD
             bool2 = self.performance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD
             if bool1 and bool2:
