@@ -125,7 +125,8 @@ class Manager(Employee):
         if change<=0:
             self.happiness-=1
             for v in self.relationships:
-                self.relationships[v]-=1
+                if not isinstance(v, Manager):
+                    self.relationships[v]-=1
         else:
             self.happiness+=1
 
@@ -168,7 +169,7 @@ class PermanentEmployee(Employee):
     def interact(self, other):
         super().interact(other)
         if self.manager is not None and other is self.manager:
-            bool1 = other.happiness >= HAPPINESS_THRESHOLD
+            bool1 = other.happiness > HAPPINESS_THRESHOLD
             bool2 = self.performance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD
             if bool1 and bool2:
                 self.savings += MANAGER_BONUS
