@@ -172,5 +172,5 @@ class PermanentEmployee(Employee):
             bool2 = self.performance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD
             if bool1 and bool2:
                 self.savings += MANAGER_BONUS
-            elif other.happiness <= HAPPINESS_THRESHOLD:
+            if other.happiness <= HAPPINESS_THRESHOLD:
                 self.happiness -= 1
