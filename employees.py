@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Aadi Vasa and <FULL NAME>, this
+On my/our honor, Aadi Vasa and Raghuvendra Chowdhry, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -13,7 +13,7 @@ code to someone else), the case shall be submitted to the Office of the Dean of
 Students. Academic penalties up to and including an F in the course are likely.
 
 UT EID 1: adv982
-UT EID 2:
+UT EID 2: rbc993
 """
 
 from abc import ABC, abstractmethod
@@ -129,17 +129,17 @@ class Manager(Employee):
         else:
             self.happiness+=1
 
-
-
-# TODO: implement this class. You may delete this comment when you are done.
 class TemporaryEmployee(Employee):
     """
     A subclass of Employee representing a temporary employee.
     """
-
-    #TODO implement this pls 
     def work(self):
-        pass
+        change = random.randint(-15,15)
+        self.performance += change
+        if change <= 0:
+            self.happiness -= 2
+        else:
+            self.happiness += 1
 
     def interact(self, other):
         "interact in child class"
@@ -155,10 +155,22 @@ class TemporaryEmployee(Employee):
             if self.salary<=0:
                 self.is_employed=False
 
-
-
-# TODO: implement this class. You may delete this comment when you are done.
 class PermanentEmployee(Employee):
     """
     A subclass of Employee representing a permanent employee.
     """
+    def work(self):
+        change = random.randint(-10,10)
+        self.performance += change
+        if change >= 0:
+            self.happiness += 1
+
+    def interact(self, other):
+        super().interact(other)
+        if self.manager is not None and other.name == self.manager.name:
+            bool1 = other.happiness >= HAPPINESS_THRESHOLD
+            bool2 = self.performance > PERM_EMPLOYEE_PERFORMANCE_THRESHOLD
+            if bool1 and bool2:
+                self.savings += MANAGER_BONUS
+            elif other.happiness <= HAPPINESS_THRESHOLD:
+                self.happiness -= 1
